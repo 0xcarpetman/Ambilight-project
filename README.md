@@ -1,15 +1,20 @@
 # Ambilight-project
-I created an ambilight system for my TV to improve experience when gaming. Feel free to use as you please.
+
+## This is just another writeup i'm not sure will work. Give me a TL;DR
+
+With this setup you will **NOT** be using the Raspberry as your platform to stream from. Nor does it use a shitty webcam approach. 
+This setup will let you attach an ambilight effect to any image coming through an HDMI source to your TV. A chromecast, A Firestick, PS5/Xbox, Laptop, whatever.
+It will not work for any apps you might have on your Smart TV.
 
 ## What is ambilight?
 Ambilight is a feature that's been around for quite a while that will give your TV a backlight that corresponds to the colors shown on the TV - a blue skye will give a blue backlight. The cool thing is that it changes with the picture. Philips has recently tried to bring it back, but those things are expensive AF and doesn't work any better than something homemode.
-If you try to start an ambilight project from scratch you will quickly find a billion guides that all have their own take on things. 
+If you try to start an ambilight project from scratch you will quickly find a billion guides that all have their own take on things. This is where i've collected the useful stuff that actually worked from all those other guides.
 
 So there are two main ways of doing this. I have seen some projects that uses a Webcamera to record whats on the screen, but this seemed to me to be a shitty solution that cannot possible be giving an acceptable result. So this setup **DOES NOT USE WEBCAM**, instead it uses Hyperbian and USB capture mode. This is done through a dongle that is able to convert the signal for us. All this will be better explained down the guide don't worry.
 
 This overall setup is straightforward and will work 100% on HDMI input sources. Depending on your splitter, and it's abaility to split and strip images of protection you may or may not be able to use newer HDCP for example, I have not had this problem. Considering this requires an external source, this means you won't get ambilight effects on anything seen through a Smart TV's OS as this is not an HDMI input source. The Netflix app on your TV won't work, in other words.
 
-I use it for two things: 
+I use it mainly for two things: 
 1. My Xbox
 2. My Chromecast
 
@@ -20,14 +25,29 @@ Oh, and this thing hooked up to the Xbox is lit AF. It looks really good and you
 
 # WIP - Tutorial for building
 
-I will update this more soon once i've been able to take some pictures etc.
+### This is work in progress.
+
+## What you'll need
+
+You need to be a bit picky about parts as not everything will work, but i was able to get most of my stuff from AliExpress for a cheap price.
+
+- UTV007 USB 2.0 Video Capture Grabber Card adapter **Chipset UTV 007** (This is important or you will have trouble with drivers!)- https://www.aliexpress.com/item/4000169143056.html?spm=a2g0s.9042311.0.0.62ae4c4dm3MRSH
+- A USB Hub, any will really do. I chose one with external power supply to deliver more amps.
+- An HDMI Switch (This is optional - this will give you more input sources to easily switch between without having to pull out cables everytime. Here's my choice: https://www.aliexpress.com/item/1005001298549542.html?spm=a2g0s.9042311.0.0.27424c4dEcoioK
+- WS8212b LED strip. Make sure you got enough to cover the outline of your TV's backside. I used these with 60 LEDs per meter: https://www.aliexpress.com/item/1005001345392567.html?spm=a2g0s.9042311.0.0.27424c4dEcoioK
+- An HDMI Splitter. This is the device that will send the input signal to both your TV and to the HDMI2AV converter. You're probably gonna want to put a little bit more than a few dollars into this device, depending on your needs of course. Some will be able to work with HDCP and others not. Mine cost me about 40$
+- HDMI2AV Converter. You need this to turn the HDMI signal analog so that the USB Video capture device can work with it. I got mine locally, but this should be the one: https://www.aliexpress.com/item/4000919541114.html
+- Raspberry Pi. It's gonna run Hyperbian and be connected to the Arduiono and USB capture device. I used an old RPi3 i had left over.
+- MicroSD Card (8 and up)
+- Arduino (Nano). Any device should work, but you can find the Nanos dirt cheap anywhere online. I always have a few extra laying around
+
+That's it! Once you have the parts, time to assemble some stuff. I would advice you to lay your TV down flat if you can so that you can easily attach all the LED strips to the back.
 
 ## Powering the WS8212B
 
 Powering this strip will vary depending on the number of LEDs you have. Each LED on the WS2812B uses anywhere from 20-60ma. It’s a good idea to assume maximum brightness when calculating amperage even if you don’t plan to keep them at maximum brightness. Although it’s safer to use USB power for the Raspberry Pi you can power it from the power supply so If you plan on doing this then you should factor in another 2.4A for the Pi. 
 
 A 10A or 15A power supply should be fine for the average TV (less than 200 LEDs). Most “wall wart” power supplies (the black power bricks you’re used to seeing) don’t usually come any bigger than 15A so if you need more than 15A then you’ll likely end up with a metal power supply that needs to be placed inside of a box. If you absolutely need to, you can save some amperage by lowering the brightness of the LEDs. 
-
 
 You can calculate the required power supply amperage for you LEDs using the simple calculation below: 
 
